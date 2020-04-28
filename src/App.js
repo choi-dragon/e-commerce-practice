@@ -60,7 +60,7 @@ class App extends React.Component {
 				});
 			}
 			//this.setState({currentUser:userAuth}) -- with out redux
-			setCurrentUser(userAuth); // -- with redux
+			setCurrentUser(userAuth); // -- with redux. This is necessary when user logs out and userAuth becomes 'null' the currentUser will store the value of null
 		});
 	}
 	componentWillUnmount() {
@@ -95,19 +95,20 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user }) => { // this is a function to get the value from redux
 	// this grabs the user state or userReducer from redux rootReducer. This needs to be passed to connect() at the bottom of the page.
 	// Just to make note this will be passed as props 
 	// So to access the currentUser it will be this.props.currentUser.
 	return { currentUser: user.currentUser };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => { // this is a function that allows changes in the state
 	// the dispatch function lets the redux know that whatever that is passed in will be "Action" e.g setCurrentUser.
 	//NOTE:This needs to be passed to connect() at the bottom of the page
 	// Just to make note this will be passed as props 
-	// So to access the currentUser it will be this.props.currentUser.
-	return { setCurrentUser: (user) => dispatch(setCurrentUser(user)) }; // this setCurrentUser returns the Action object taking in the user as a parameter. And this "user" will be passed as "payload" to the userReducer
+	// So to access the currentUser it will be--> this.props.currentUser.
+	return { setCurrentUser: (user) => dispatch(setCurrentUser(user)) }; // this setCurrentUser returns the Action object taking in the user(this is just a parameter) as a parameter. And this "user" will be passed as "payload" to the userReducer.
+	// this step is necessary to use the function setCurrentUser()
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

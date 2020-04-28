@@ -14,12 +14,12 @@ class SignIn extends React.Component {
 	handleSumbit = async (e) => {
 		e.preventDefault();
 		// this.setstate({ email: "", password: "" });
-		const {email, password}=this.state;
-		try{
-			await auth.signInWithEmailAndPassword(email, password);// this authenticates the user with provdied email and password.
-			this.setState({email:'',password:''})
-		}catch(error){
-			console.log(error)
+		const { email, password } = this.state;
+		try {
+			await auth.signInWithEmailAndPassword(email, password); // this authenticates the user with provdied email and password.
+			this.setState({ email: "", password: "" });
+		} catch (error) {
+			console.log(error);
 		}
 	};
 	handleChange = (e) => {
@@ -48,7 +48,7 @@ class SignIn extends React.Component {
 						required
 						label="PASSWORD"
 					/>
-					<div className='buttons'>
+					<div className="buttons">
 						<CustomButton type="submit"> sign in</CustomButton>
 						<CustomButton onClick={signInWithGoogle} isGoogleSignIn>
 							sign in with google

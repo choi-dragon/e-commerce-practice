@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 // import { useReducer } from 'react';
-
+//-------------------firebase key-----------------------------//
 const config = {
 	apiKey: "AIzaSyDWxjWuVYdy7wHy-9SZHodk1rdYZy55454",
 	authDomain: "e-commerce-db-b3dfe.firebaseapp.com",
@@ -13,7 +13,7 @@ const config = {
 	appId: "1:675632182823:web:2be7879149cd5fecc4c002",
 	measurementId: "G-8YQYDW64TG",
 };
-
+//-----------authentication set up----------------------//
 export const createUserProfileDocument=async (userAuth, additionalData)=>{ 
 	// similar to mongodb firebase has CRUD methods. These are .set(), .get(), .update() and .delete()
 	if(!userAuth) {
@@ -42,7 +42,7 @@ export const createUserProfileDocument=async (userAuth, additionalData)=>{
 	return userId
 }
 
-
+//-------------- basic firebase set up----------------//
 firebase.initializeApp(config)
 export const auth=firebase.auth()
 export const firestore=firebase.firestore()
