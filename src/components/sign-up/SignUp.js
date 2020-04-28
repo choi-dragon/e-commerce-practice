@@ -18,24 +18,27 @@ class SignUp extends React.Component {
 		};
 	}
 	handleSubmit = async (e) => {
-        e.preventDefault();
-        const { displayName, email, password, confirmPassword } = this.state;
-        if(password!==confirmPassword){
-            alert("Passwords don't match")
-            return;
-        }
-        try{
-            const{ user } =await auth.createUserWithEmailAndPassword(email,password)// this 'createUserWithEmailAndPassword' is built in function firebase library that let you create new user based on provided email and password. When successfully created it will return firestore object that has 'uid'
-            await createUserProfileDocument(user,{displayName}) // displayName is in curley bracket because its an object
-            this.setState({
-                displayName: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-            })
-        }catch(e){
-            console.error(e)
-        }
+		e.preventDefault();
+		const { displayName, email, password, confirmPassword } = this.state;
+		if (password !== confirmPassword) {
+			alert("Passwords don't match");
+			return;
+		}
+		try {
+			const { user } = await auth.createUserWithEmailAndPassword(
+				email,
+				password
+			); // this 'createUserWithEmailAndPassword' is built in function firebase library that let you create new user based on provided email and password. When successfully created it will return firestore object that has 'uid'
+			await createUserProfileDocument(user, { displayName }); // displayName is in curley bracket because its an object
+			this.setState({
+				displayName: "",
+				email: "",
+				password: "",
+				confirmPassword: "",
+			});
+		} catch (e) {
+			console.error(e);
+		}
 	};
 	handleChange = (e) => {
 		const { name, value } = e.target;
@@ -45,7 +48,7 @@ class SignUp extends React.Component {
 		const { displayName, email, password, confirmPassword } = this.state;
 		return (
 			<div className="sign-up">
-				<h2 className="title">I do not have an account</h2>
+				<h2 className="title">Not signed up?</h2>
 				<span>Sign up with your email and password</span>
 				<form className="sign-up-form" onSubmit={this.handleSubmit}>
 					<FormInput

@@ -10,8 +10,8 @@ const CollectionPreview = ({ title, items }) => (
 					// this only grabs first for items of each objects.
 					return index < 4;
 				})
-				.map(({ ...rest }, index) => {
-					return <CollectionItem key={index} {...rest} />;
+				.map((item, index) => {
+					return <CollectionItem key={index} item={item} />;
 				})}
 		</div>
 	</div>
