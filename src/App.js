@@ -1,7 +1,12 @@
 import React from "react";
 import "./App.css";
 import HomePage from "./components/HomePage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import ShopPage from "./components/shop/ShopPage";
 import Header from "./components/header/Header";
 import SignInAndSignUpPage from "./components/sign-in-and-sign-out/SignInAndSignUpPage";
@@ -70,10 +75,17 @@ class App extends React.Component {
 						<Header />
 						<Switch>
 							<Route exact path="/" component={HomePage} />
-							<Route exact path="/shop" component={ShopPage} />
+							<Route path="/shop" component={ShopPage} />
 							<Route
+								exact
 								path="/signin"
-								component={SignInAndSignUpPage}
+								render={() => {
+									return this.props.currentUser ? ( // what this will do if if currentUser is not 'null' it will redirect the page to the home page
+										<Redirect to="/" />
+									) : (
+										<SignInAndSignUpPage />
+									);
+								}}
 							/>
 						</Switch>
 					</div>
@@ -83,9 +95,19 @@ class App extends React.Component {
 	}
 }
 
+const mapStateToProps = ({ user }) => {
+	// this grabs the user state or userReducer from redux rootReducer. This needs to be passed to connect() at the bottom of the page.
+	// Just to make note this will be passed as props 
+	// So to access the currentUser it will be this.props.currentUser.
+	return { currentUser: user.currentUser };
+};
+
 const mapDispatchToProps = (dispatch) => {
-	// the dispatch function lets the redux know that whatever that is passed in will be "Action" e.g setCurrentUser
+	// the dispatch function lets the redux know that whatever that is passed in will be "Action" e.g setCurrentUser.
+	//NOTE:This needs to be passed to connect() at the bottom of the page
+	// Just to make note this will be passed as props 
+	// So to access the currentUser it will be this.props.currentUser.
 	return { setCurrentUser: (user) => dispatch(setCurrentUser(user)) }; // this setCurrentUser returns the Action object taking in the user as a parameter. And this "user" will be passed as "payload" to the userReducer
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
