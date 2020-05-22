@@ -7,6 +7,7 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom";
+import CheckOut from './components/checkout/CheckOut'
 import ShopPage from "./components/shop/ShopPage";
 import Header from "./components/header/Header";
 import SignInAndSignUpPage from "./components/sign-in-and-sign-out/SignInAndSignUpPage";
@@ -76,6 +77,7 @@ class App extends React.Component {
 						<Switch>
 							<Route exact path="/" component={HomePage} />
 							<Route path="/shop" component={ShopPage} />
+							<Route exact path='/checkout' component={CheckOut}/>
 							<Route
 								exact
 								path="/signin"
@@ -100,7 +102,8 @@ const mapStateToProps = ({ user }) => { // this is a function to get the value f
 	// Just to make note this will be passed as props 
 	// So to access the currentUser it will be this.props.currentUser.
 	return { currentUser: user.currentUser };
-};
+}; 
+// above can be changed with reselector but I have decided not to because I need to know how the basic level look like without implementing selectors. 
 
 const mapDispatchToProps = (dispatch) => { // this is a function that allows changes in the state
 	// the dispatch function lets the redux know that whatever that is passed in will be "Action" e.g setCurrentUser.

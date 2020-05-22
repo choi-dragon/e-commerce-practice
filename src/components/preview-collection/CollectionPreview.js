@@ -7,7 +7,7 @@ const CollectionPreview = ({ title, items }) => (
 		<div className="preview">
 			{items
 				.filter((item, index) => {
-					// this only grabs first for items of each objects.
+					// this only grabs first four items of each objects.
 					return index < 4;
 				})
 				.map((item, index) => {

@@ -6,7 +6,9 @@ import { connect } from "react-redux"; // this function is need to connecto Redu
 // it is use as e.g: export default connect(param1,param2)(Header) the param in this case will take in a function that allows you to get access to the state or reducer (to be exact) in store.
 import CartIcon from "../cart-icon/CartIcon";
 import CartDropdown from "../cart-dropdown/CartDropdown";
-
+import {createStructuredSelector} from 'reselect'
+import {selectCartHidden} from '../../redux/cart/cart.selectors'
+import{selectCurrentUser} from '../../redux/user/user.selector'
 function Header({ currentUser, hidden }) {
 	// this currentUser value is retrived from redux through the function "mapStateToProps" in the page below
 	return (
@@ -41,9 +43,21 @@ function Header({ currentUser, hidden }) {
 // };
 
 //------------destructured ver-----------------//
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => { // this is a function to get the value from redux. This is same as this.state.currentUser or this.state.hidden
-	// this param state actually represents rootReducer.
-	return { currentUser, hidden };
-};
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => { // this is a function to get the value from redux. This is same as this.state.currentUser or this.state.hidden
+// 	// this param state actually represents rootReducer.
+// 	return { currentUser, hidden };
+// };
+//------------using the selector---------------//
+// ver 1
+// const mapStateToProps= (state)=>({
+// 	currentUser:selectCurrentUser(state),
+// 	hidden:selectCartHidden(state)
+// })
+//ver 2
+const mapStateToProps=createStructuredSelector({ // this is built in function in 'reselect' module
+	currentUser:selectCurrentUser,
+	hidden:selectCartHidden
+})
+
 
 export default connect(mapStateToProps)(Header);
