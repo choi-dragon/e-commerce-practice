@@ -7,7 +7,7 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom";
-import CheckOut from './components/checkout/CheckOut'
+import CheckOut from "./components/checkout/CheckOut";
 import ShopPage from "./components/shop/ShopPage";
 import Header from "./components/header/Header";
 import SignInAndSignUpPage from "./components/sign-in-and-sign-out/SignInAndSignUpPage";
@@ -77,7 +77,11 @@ class App extends React.Component {
 						<Switch>
 							<Route exact path="/" component={HomePage} />
 							<Route path="/shop" component={ShopPage} />
-							<Route exact path='/checkout' component={CheckOut}/>
+							<Route
+								exact
+								path="/checkout"
+								component={CheckOut}
+							/>
 							<Route
 								exact
 								path="/signin"
@@ -97,18 +101,20 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = ({ user }) => { // this is a function to get the value from redux
+const mapStateToProps = ({ user }) => {
+	// this is a function to get the value from redux
 	// this grabs the user state or userReducer from redux rootReducer. This needs to be passed to connect() at the bottom of the page.
-	// Just to make note this will be passed as props 
+	// Just to make note this will be passed as props
 	// So to access the currentUser it will be this.props.currentUser.
 	return { currentUser: user.currentUser };
-}; 
-// above can be changed with reselector but I have decided not to because I need to know how the basic level look like without implementing selectors. 
+};
+// above can be changed with reselector but I have decided not to because I need to know how the basic level look like without implementing selectors.
 
-const mapDispatchToProps = (dispatch) => { // this is a function that allows changes in the state
+const mapDispatchToProps = (dispatch) => {
+	// this is a function that allows changes in the state
 	// the dispatch function lets the redux know that whatever that is passed in will be "Action" e.g setCurrentUser.
 	//NOTE:This needs to be passed to connect() at the bottom of the page
-	// Just to make note this will be passed as props 
+	// Just to make note this will be passed as props
 	// So to access the currentUser it will be--> this.props.currentUser.
 	return { setCurrentUser: (user) => dispatch(setCurrentUser(user)) }; // this setCurrentUser returns the Action object taking in the user(this is just a parameter) as a parameter. And this "user" will be passed as "payload" to the userReducer.
 	// this step is necessary to use the function setCurrentUser()
